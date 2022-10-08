@@ -4,10 +4,7 @@ package com.workTraker.backend.Service;
 
 
 import com.workTraker.backend.Entity.*;
-import com.workTraker.backend.Repository.exception.empMeetRepo;
-import com.workTraker.backend.Repository.exception.employeeRepo;
-import com.workTraker.backend.Repository.exception.meetingRepo;
-import com.workTraker.backend.Repository.exception.requestRepo;
+import com.workTraker.backend.Repository.exception.*;
 import com.workTraker.backend.Service.commonMethodService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -33,6 +30,9 @@ public class commonMethodServiceImpl implements commonMethodService {
 
     @Autowired
     private requestRepo requestRepo;
+
+    @Autowired
+    private projectRepo projectRepo;
     @Override
     public String addEmployee(employee employee) {
         employeeRepo.save(employee);
@@ -130,5 +130,37 @@ public class commonMethodServiceImpl implements commonMethodService {
             return request.get().getAcceptStatus();
         }
         return "error Id";
+    }
+
+    @Override
+    public String addProject(project project) {
+        projectRepo.save(project);
+        return "added";
+    }
+
+    @Override
+    public String addEmployeeToProject(Long empId, Long pID) {
+        Optional<employee> employee = employeeRepo.findById(empId);
+        if (employee.isPresent()){
+            employee.get().setProjectId(pID);
+            return "added";
+        }
+        return "error id";
+    }
+
+    @Override
+    public int getEmpRate(Long id) {
+        Optional<employee> employee = employeeRepo.findById(id);
+        return employee.map(com.workTraker.backend.Entity.employee::getRate).orElse(0);
+    }
+
+    @Override
+    public List<project> getProjectsByIds(List<String> codes) {
+        List<project> projects = new ArrayList<>();
+        for (String code : codes){
+            Optional<project> project = projectRepo.findByProjectCode(code);
+            project.ifPresent(projects::add);
+        }
+        return projects;
     }
 }

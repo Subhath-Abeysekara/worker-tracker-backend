@@ -1,9 +1,6 @@
 package com.workTraker.backend.Controller;
 
-import com.workTraker.backend.Entity.employee;
-import com.workTraker.backend.Entity.meeting;
-import com.workTraker.backend.Entity.meetingAddBody;
-import com.workTraker.backend.Entity.request;
+import com.workTraker.backend.Entity.*;
 import com.workTraker.backend.Service.commonMethodService;
 import com.workTraker.backend.Service.commonMethodService;
 import lombok.Getter;
@@ -68,6 +65,26 @@ public class commonController {
     @PutMapping("/acceptRequest/{id}")
     private String startRequest(@PathVariable Long id){
         return commonMethodService.acceptRequest(id);
+    }
+
+    @PostMapping("addProject")
+    private String addProject(@RequestBody project project){
+        return commonMethodService.addProject(project);
+    }
+
+    @PutMapping("/addEmpProject/{pid}/{eid}")
+    private String addempProject(@PathVariable Long pid , @PathVariable Long eid){
+        return commonMethodService.addEmployeeToProject(eid,pid);
+    }
+
+    @GetMapping("/getRate/{id}")
+    private int getEmpRate(@PathVariable Long id){
+        return commonMethodService.getEmpRate(id);
+    }
+
+    @GetMapping("/getProjects")
+    private List<project> getResponse(@RequestBody List<String> ids){
+        return commonMethodService.getProjectsByIds(ids);
     }
 
 }

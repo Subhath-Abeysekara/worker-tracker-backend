@@ -1,10 +1,7 @@
 package com.workTraker.backend.Service;
 
 
-import com.workTraker.backend.Entity.employee;
-import com.workTraker.backend.Entity.meeting;
-import com.workTraker.backend.Entity.meetingAddBody;
-import com.workTraker.backend.Entity.request;
+import com.workTraker.backend.Entity.*;
 
 import java.util.List;
 
@@ -28,5 +25,13 @@ public interface commonMethodService {
     request showRequest(Long id);
 
     String showResponse(Long id);
+
+    String addProject(project project);
+
+    String addEmployeeToProject(Long empId , Long pID);
+
+    int getEmpRate(Long id);
+
+    List<project> getProjectsByIds(List<String> codes);
 
 }

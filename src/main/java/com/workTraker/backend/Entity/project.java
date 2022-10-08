@@ -11,15 +11,14 @@ import javax.persistence.Id;
 @Entity
 @Getter
 @Setter
-public class employee {
+public class project {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long empId;
+    private Long pId;
     private String name;
-    private int rate;
-    private Long projectId=0L;
+    private String projectCode;
 
-    public employee() {
+    public project() {
     }
 }

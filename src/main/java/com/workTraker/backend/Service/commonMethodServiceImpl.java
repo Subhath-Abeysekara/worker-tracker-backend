@@ -89,7 +89,7 @@ public class commonMethodServiceImpl implements commonMethodService {
                 return "started";
             }
         }
-        return "Time has expended";
+        return "Time has expired or already started";
     }
 
     @Override

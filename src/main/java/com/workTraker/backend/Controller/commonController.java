@@ -83,8 +83,8 @@ public class commonController {
     }
 
     @PostMapping("/getProjectsEmp")
-    private List<project> getResponse(@RequestBody List<String> ids){
-        return commonMethodService.getProjectsByIds(ids);
+    private List<project> getResponse(@RequestBody bodyList bodyList){
+        return commonMethodService.getProjectsByIds(bodyList.getCodes());
     }
 
     @GetMapping("/getProjects")

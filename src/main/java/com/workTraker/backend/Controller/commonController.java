@@ -43,7 +43,7 @@ public class commonController {
     }
 
     @PostMapping("addRequest")
-    private String addRequest(@RequestBody request request){
+    private Long addRequest(@RequestBody request request){
         return commonMethodService.addRequest(request);
     }
 

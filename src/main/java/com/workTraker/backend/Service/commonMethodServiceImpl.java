@@ -93,9 +93,9 @@ public class commonMethodServiceImpl implements commonMethodService {
     }
 
     @Override
-    public String addRequest(request request) {
-        requestRepo.save(request);
-        return "added";
+    public Long addRequest(request request) {
+        return requestRepo.save(request).getReqId();
+
     }
 
     @Override
@@ -128,8 +128,10 @@ public class commonMethodServiceImpl implements commonMethodService {
     public request showRequest(Long id) {
         List<request> requests = requestRepo.findAll();
         for(request request : requests){
-            if(request.getAcceptStatus().equals("pending")&&request.getReceiver_id().equals(id)){
-                return request;
+            if(request.getReceiver_id()!=null){
+                if(request.getAcceptStatus().equals("pending")&&request.getReceiver_id().equals(id)){
+                    return request;
+                }
             }
         }
         return null;

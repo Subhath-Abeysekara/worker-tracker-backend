@@ -16,7 +16,7 @@ public interface commonMethodService {
 
     String startMeeting(Long empId);
 
-    String addRequest(request request);
+    Long addRequest(request request);
 
     String acceptRequest(Long id);
 

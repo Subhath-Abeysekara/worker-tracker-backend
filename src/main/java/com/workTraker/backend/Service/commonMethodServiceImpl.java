@@ -85,6 +85,7 @@ public class commonMethodServiceImpl implements commonMethodService {
         {
             if(meeting.getOrg_emp_id().equals(empId)&&meeting.getStatus().equals("pending")){
                 meeting.setStatus("start");
+                meetingRepo.save(meeting);
                 return "started";
             }
         }
@@ -99,28 +100,39 @@ public class commonMethodServiceImpl implements commonMethodService {
 
     @Override
     public String acceptRequest(Long id) {
-        Optional<request> request = requestRepo.findById(id);
-        if (request.isPresent()){
-            request.get().setAcceptStatus("accept");
-            requestRepo.save(request.get());
+        List<request> requests = requestRepo.findAll();
+        for(request request : requests){
+            if(request.getAcceptStatus().equals("pending")&&request.getReceiver_id().equals(id)){
+                request.setAcceptStatus("accept");
+                requestRepo.save(request);
+                return "accepted";
+            }
         }
         return "error Id";
     }
 
     @Override
     public String cancelRequest(Long id) {
-        Optional<request> request = requestRepo.findById(id);
-        if (request.isPresent()){
-            request.get().setAcceptStatus("cancel");
-            requestRepo.save(request.get());
+        List<request> requests = requestRepo.findAll();
+        for(request request : requests){
+            if(request.getAcceptStatus().equals("pending")&&request.getReceiver_id().equals(id)){
+                request.setAcceptStatus("cancel");
+                requestRepo.save(request);
+                return "accepted";
+            }
         }
         return "error Id";
     }
 
     @Override
     public request showRequest(Long id) {
-        Optional<request> request = requestRepo.findById(id);
-        return request.orElse(null);
+        List<request> requests = requestRepo.findAll();
+        for(request request : requests){
+            if(request.getAcceptStatus().equals("pending")&&request.getReceiver_id().equals(id)){
+                return request;
+            }
+        }
+        return null;
     }
 
     @Override
@@ -162,5 +174,10 @@ public class commonMethodServiceImpl implements commonMethodService {
             project.ifPresent(projects::add);
         }
         return projects;
+    }
+
+    @Override
+    public List<project> getAllProjects() {
+        return projectRepo.findAll();
     }
 }

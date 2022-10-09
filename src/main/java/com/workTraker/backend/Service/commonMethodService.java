@@ -34,4 +34,6 @@ public interface commonMethodService {
 
     List<project> getProjectsByIds(List<String> codes);
 
+    List<project> getAllProjects();
+
 }

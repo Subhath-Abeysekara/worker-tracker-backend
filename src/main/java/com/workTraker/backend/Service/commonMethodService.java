@@ -18,9 +18,9 @@ public interface commonMethodService {
 
     Long addRequest(request request);
 
-    String acceptRequest(Long id);
+    String acceptRequest(Long id , Long id2);
 
-    String cancelRequest(Long id);
+    String cancelRequest(Long id , Long id2);
 
     request showRequest(Long id);
 

@@ -99,11 +99,11 @@ public class commonMethodServiceImpl implements commonMethodService {
     }
 
     @Override
-    public String acceptRequest(Long id) {
+    public String acceptRequest(Long id , Long id2) {
         List<request> requests = requestRepo.findAll();
         for(request request : requests){
             if(request.getReceiver_id()!=null){
-                if(request.getAcceptStatus().equals("pending")&&request.getReceiver_id().equals(id)){
+                if(request.getAcceptStatus().equals("pending")&&request.getReceiver_id().equals(id)&&request.getReqId().equals(id2)){
                     request.setAcceptStatus("accept");
                     requestRepo.save(request);
                     return "accepted";
@@ -115,11 +115,11 @@ public class commonMethodServiceImpl implements commonMethodService {
     }
 
     @Override
-    public String cancelRequest(Long id) {
+    public String cancelRequest(Long id , Long id2) {
         List<request> requests = requestRepo.findAll();
         for(request request : requests){
             if(request.getReceiver_id()!=null){
-                if(request.getAcceptStatus().equals("pending")&&request.getReceiver_id().equals(id)){
+                if(request.getAcceptStatus().equals("pending")&&request.getReceiver_id().equals(id)&&request.getReqId().equals(id2)){
                     request.setAcceptStatus("cancel");
                     requestRepo.save(request);
                     return "canceled";

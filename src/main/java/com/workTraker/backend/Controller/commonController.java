@@ -57,14 +57,14 @@ public class commonController {
         return commonMethodService.showResponse(id);
     }
 
-    @PutMapping("/cancelRequest/{id}")
-    private String cancelRequest(@PathVariable Long id){
-        return commonMethodService.cancelRequest(id);
+    @PutMapping("/cancelRequest/{eid}/{rid}")
+    private String cancelRequest(@PathVariable Long eid , @PathVariable Long rid){
+        return commonMethodService.cancelRequest(eid , rid);
     }
 
-    @PutMapping("/acceptRequest/{id}")
-    private String startRequest(@PathVariable Long id){
-        return commonMethodService.acceptRequest(id);
+    @PutMapping("/acceptRequest/{eid}/{rid}")
+    private String startRequest(@PathVariable Long eid , @PathVariable Long rid){
+        return commonMethodService.acceptRequest(eid,rid);
     }
 
     @PostMapping("addProject")

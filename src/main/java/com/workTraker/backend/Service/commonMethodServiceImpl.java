@@ -102,11 +102,14 @@ public class commonMethodServiceImpl implements commonMethodService {
     public String acceptRequest(Long id) {
         List<request> requests = requestRepo.findAll();
         for(request request : requests){
-            if(request.getAcceptStatus().equals("pending")&&request.getReceiver_id().equals(id)){
-                request.setAcceptStatus("accept");
-                requestRepo.save(request);
-                return "accepted";
+            if(request.getReceiver_id()!=null){
+                if(request.getAcceptStatus().equals("pending")&&request.getReceiver_id().equals(id)){
+                    request.setAcceptStatus("accept");
+                    requestRepo.save(request);
+                    return "accepted";
+                }
             }
+
         }
         return "error Id";
     }
@@ -115,11 +118,14 @@ public class commonMethodServiceImpl implements commonMethodService {
     public String cancelRequest(Long id) {
         List<request> requests = requestRepo.findAll();
         for(request request : requests){
-            if(request.getAcceptStatus().equals("pending")&&request.getReceiver_id().equals(id)){
-                request.setAcceptStatus("cancel");
-                requestRepo.save(request);
-                return "accepted";
+            if(request.getReceiver_id()!=null){
+                if(request.getAcceptStatus().equals("pending")&&request.getReceiver_id().equals(id)){
+                    request.setAcceptStatus("cancel");
+                    requestRepo.save(request);
+                    return "canceled";
+                }
             }
+
         }
         return "error Id";
     }

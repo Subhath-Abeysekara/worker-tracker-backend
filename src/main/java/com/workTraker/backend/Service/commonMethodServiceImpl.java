@@ -43,8 +43,16 @@ public class commonMethodServiceImpl implements commonMethodService {
     }
 
     @Override
-    public List<employee> getEmployees() {
-        return employeeRepo.findAll();
+    public List<employee> getEmployees(Long id) {
+        List<employee> employees = new ArrayList<>();
+        List<employee> employees1 = employeeRepo.findAll();
+        for(employee employee : employees1){
+            if (employee.getEmpId().equals(id)){
+                continue;
+            }
+            employees.add(employee);
+        }
+        return employees;
     }
 
     @Override

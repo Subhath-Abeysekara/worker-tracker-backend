@@ -22,9 +22,9 @@ public class commonController {
         return commonMethodService.addEmployee(employee);
     }
 
-    @GetMapping("/getEmployees")
-    private List<employee> getAll(){
-        return commonMethodService.getEmployees();
+    @GetMapping("/getEmployees/{id}")
+    private List<employee> getAll(@PathVariable Long id){
+        return commonMethodService.getEmployees(id);
     }
 
     @GetMapping("/getEmployee/{id}")

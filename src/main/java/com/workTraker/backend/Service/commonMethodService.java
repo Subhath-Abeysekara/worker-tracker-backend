@@ -10,7 +10,7 @@ import java.util.Optional;
 public interface commonMethodService {
 
     String addEmployee(employee employee);
-    List<employee> getEmployees();
+    List<employee> getEmployees(Long id);
 
     String addMeeting(meetingAddBody meetingAddBody);
 

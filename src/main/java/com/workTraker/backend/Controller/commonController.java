@@ -27,6 +27,11 @@ public class commonController {
         return commonMethodService.getEmployees();
     }
 
+    @GetMapping("/getEmployee/{id}")
+    private employee getOne(@PathVariable Long id){
+        return commonMethodService.getEmployee(id);
+    }
+
     @PostMapping("addMeeting")
     private String addMeet(@RequestBody meetingAddBody meetingAddBody){
         return commonMethodService.addMeeting(meetingAddBody);
@@ -90,6 +95,21 @@ public class commonController {
     @GetMapping("/getProjects")
     private List<project> getProjectsAll(){
         return commonMethodService.getAllProjects();
+    }
+
+    @PostMapping("/addMassage")
+    private String addMasg(@RequestBody massages massages){
+        return commonMethodService.addMassage(massages);
+    }
+
+    @GetMapping("/getSentMassage/{mid}/{sid}")
+    private List<msgResBody> getSMsg(@PathVariable Long mid , @PathVariable Long sid){
+        return commonMethodService.getSMassages(mid,sid);
+    }
+
+    @GetMapping("/getReceiveMassage/{mid}/{rid}")
+    private List<msgResBody> getRMsg(@PathVariable Long mid , @PathVariable Long rid){
+        return commonMethodService.getRMassages(mid,rid);
     }
 
 }

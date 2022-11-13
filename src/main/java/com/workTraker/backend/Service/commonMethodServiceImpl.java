@@ -33,6 +33,9 @@ public class commonMethodServiceImpl implements commonMethodService {
 
     @Autowired
     private projectRepo projectRepo;
+
+    @Autowired
+    private massageRepo massageRepo;
     @Override
     public String addEmployee(employee employee) {
         employeeRepo.save(employee);
@@ -188,4 +191,56 @@ public class commonMethodServiceImpl implements commonMethodService {
     public List<project> getAllProjects() {
         return projectRepo.findAll();
     }
+
+    @Override
+    public String addMassage(massages massage) {
+        massageRepo.save(massage);
+        return "success";
+    }
+
+    @Override
+    public List<msgResBody> getRMassages(Long mid, Long rid) {
+        List<massages> massages = massageRepo.findByMeetingIdAndReceiverId(mid, rid);
+        List<msgResBody> msgResBodies = new ArrayList<>();
+        for (com.workTraker.backend.Entity.massages massages1 : massages){
+            if(!employeeRepo.findById(massages1.getReceiverId()).isPresent()||!employeeRepo.findById(massages1.getSenderId()).isPresent()){
+                continue;
+            }
+            msgResBody msgResBody = new msgResBody();
+            msgResBody.setMassage(massages1.getMassage());
+            msgResBody.setSenderName(employeeRepo.findById(massages1.getSenderId()).get().getName());
+            msgResBody.setReceiverName(employeeRepo.findById(massages1.getReceiverId()).get().getName());
+            msgResBodies.add(msgResBody);
+        }
+        return msgResBodies;
+    }
+
+    @Override
+    public List<msgResBody> getSMassages(Long mid, Long sid) {
+
+        List<massages> massages = massageRepo.findByMeetingIdAndSenderId(mid, sid);
+        List<msgResBody> msgResBodies = new ArrayList<>();
+        for (com.workTraker.backend.Entity.massages massages1 : massages){
+            if(!employeeRepo.findById(massages1.getReceiverId()).isPresent()||!employeeRepo.findById(massages1.getSenderId()).isPresent()){
+                continue;
+            }
+            msgResBody msgResBody = new msgResBody();
+            msgResBody.setMassage(massages1.getMassage());
+            msgResBody.setSenderName(employeeRepo.findById(massages1.getSenderId()).get().getName());
+            msgResBody.setReceiverName(employeeRepo.findById(massages1.getReceiverId()).get().getName());
+            msgResBodies.add(msgResBody);
+        }
+        return msgResBodies;
+    }
+
+    @Override
+    public employee getEmployee(Long id) {
+        Optional<employee> employee = employeeRepo.findById(id);
+        if (employee.isPresent()){
+            return employee.get();
+        }
+        return null;
+    }
+
+
 }

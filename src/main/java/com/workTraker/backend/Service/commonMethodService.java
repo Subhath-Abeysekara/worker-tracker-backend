@@ -1,9 +1,11 @@
 package com.workTraker.backend.Service;
 
 
+import ch.qos.logback.core.pattern.parser.OptionTokenizer;
 import com.workTraker.backend.Entity.*;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface commonMethodService {
 
@@ -35,5 +37,13 @@ public interface commonMethodService {
     List<project> getProjectsByIds(List<String> codes);
 
     List<project> getAllProjects();
+
+    String addMassage(massages massage);
+
+    List<msgResBody> getRMassages(Long mid , Long rid);
+
+    List<msgResBody> getSMassages(Long mid , Long sid);
+
+    employee getEmployee(Long id);
 
 }
